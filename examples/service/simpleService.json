@@ -1,0 +1,5 @@
+		{
+			"name": "simple-service",
+			"image":"nginx",
+			"mode":"global"
+		}

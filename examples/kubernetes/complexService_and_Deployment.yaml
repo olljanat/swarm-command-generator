@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: example
+  labels:
+    app: example
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  - port: 8081
+    protocol: TCP
+    targetPort: 81
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: example
+        tier: frontend
+    spec:
+      volumes:
+      - name: example-secret1
+        secret:
+          secretName: example-secret1
+      - name: example-secret2
+        secret:
+          secretName: example-secret2
+      containers: 
+      - image: nginx
+        volumeMounts:
+        - mountPath: /run/secrets
+          name: example-secret1
+        - mountPath: /run/secrets
+          name: example-secret2
