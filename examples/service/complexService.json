@@ -26,6 +26,17 @@
                    "ASPNETCORE_ENVIRONMENT":  "Development"
                },
     "constraints":  ["node.role==worker","node.platform.os==linux"],
+    "mounts":  [
+                    {
+                        "source":  "/data/example-data",
+                        "target":  "/data",
+						"type":    "bind"
+                    },
+                    {
+                        "source":  "data2",
+                        "target":  "/data2"
+                    }					
+                ],
     "secrets":  [
                     {
                         "source":  "example-secret1",
@@ -36,5 +47,6 @@
                         "target":  "/run/secrets/example-secret2"
                     }
                 ],
+	"networks":  ["valid-network1","valid-network2"],
     "image":  "nginx"
 }

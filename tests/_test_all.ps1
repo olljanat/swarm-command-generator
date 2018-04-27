@@ -8,6 +8,8 @@ Write-Output "dummy" | docker config create valid-config-name1 - | Out-Null
 Write-Output "dummy" | docker config create valid-config-name2 - | Out-Null
 Write-Output "secret" | docker secret create valid-secret-name1 - | Out-Null
 Write-Output "secret" | docker secret create valid-secret-name2 - | Out-Null
+docker network create --driver overlay valid-network1 | Out-Null
+docker network create --driver overlay valid-network2 | Out-Null
 
 . $PSScriptRoot\test_kubernetes_functions.ps1
 . $PSScriptRoot\test_secret_functions.ps1
@@ -19,3 +21,5 @@ docker config rm valid-config-name1 | Out-Null
 docker config rm valid-config-name2 | Out-Null
 docker secret rm valid-secret-name1 | Out-Null
 docker secret rm valid-secret-name2 | Out-Null
+docker network rm valid-network1 | Out-Null
+docker network rm valid-network2 | Out-Null

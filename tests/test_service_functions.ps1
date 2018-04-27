@@ -84,8 +84,12 @@ docker service create \
 --env ASPNETCORE_ENVIRONMENT=Development \
 --constraint node.role==worker \
 --constraint node.platform.os==linux \
+--mount type=bind,source=/data/example-data,target=/data \
+--mount type=volume,source=data2,target=/data2 \
 --secret source=example-secret1,target=/run/secrets/example-secret1 \
 --secret source=example-secret2,target=/run/secrets/example-secret2 \
+--network valid-network1 \
+--network valid-network2 \
 --name example nginx
 "@
 	$complexServicePSCommand | Should -Be $complexServicePSCommandShouldBe

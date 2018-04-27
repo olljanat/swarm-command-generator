@@ -68,6 +68,19 @@ Function New-DockerService {
 					$command += "--config $config $NewLineDelimiter`r`n"
 				}
 			}
+			"mounts" {
+				ForEach ($mount in $Definition.mounts)
+				{
+                    if (!($mount.type))
+                    {
+					    $command += "--mount type=volume,source=$($mount.source),target=$($mount.target) $NewLineDelimiter`r`n"
+                    }
+                    else
+                    {
+					    $command += "--mount type=$($mount.type),source=$($mount.source),target=$($mount.target) $NewLineDelimiter`r`n"
+                    }
+				}
+			}
 			"secrets" {
 				ForEach ($secret in $Definition.secrets)
 				{
@@ -121,6 +134,11 @@ Function New-DockerService {
             "constraints" {
                 ForEach ($constraint in $Definition.constraints) {
                     $command += "--constraint $constraint $NewLineDelimiter`r`n"
+                }
+            }
+            "networks" {
+                ForEach ($network in $Definition.networks) {
+                    $command += "--network $network $NewLineDelimiter`r`n"
                 }
             }
             default {
